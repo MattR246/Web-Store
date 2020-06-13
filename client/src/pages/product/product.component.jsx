@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 
-import { viewItem } from '../../redux/shop/shop.actions';
+import { addItem } from '../../redux/cart/cart.actions';
+import { selectItemToView } from '../../redux/shop/shop.selectors';
 
 import {
     CollectionItemContainer,
@@ -11,12 +12,11 @@ import {
     AddButton,
     NameContainer,
     PriceContainer,
-} from './collection-item.styles';
+} from './product.styles';
 
-const CollectionItem = ({ item, viewItem, history, match, routeName }) => {
-    const { name, price, imageUrl } = item;
-    console.log('THIS', match);
-
+const ProductPage = ({ itemToView, addItem }) => {
+    const { name, price, imageUrl } = itemToView;
+    console.log("Here's the item!", itemToView);
     return (
         <CollectionItemContainer>
             <BackgroundImage
@@ -29,18 +29,19 @@ const CollectionItem = ({ item, viewItem, history, match, routeName }) => {
                 <NameContainer>{name}</NameContainer>
                 <PriceContainer>{price}</PriceContainer>
             </CollectionFooterContainer>
-
-            <Link to={`/product/${name}`}>
-                <AddButton onClick={() => viewItem(item)} inverted>
-                    View Item
-                </AddButton>
-            </Link>
+            <AddButton onClick={() => addItem(itemToView)} inverted>
+                Add Item
+            </AddButton>
         </CollectionItemContainer>
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    viewItem: item => dispatch(viewItem(item)),
+const mapStateToProps = createStructuredSelector({
+    itemToView: selectItemToView,
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(CollectionItem));
+const mapDispatchToProps = dispatch => ({
+    addItem: itemToView => dispatch(addItem(itemToView)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import CustomButton from '../custom-button/custom-button.component';
+import CustomButton from '../../components/custom-button/custom-button.component';
 
 export const CollectionItemContainer = styled.div`
-    width: 22vw;
+    width: 50vw;
     display: flex;
     flex-direction: column;
-    height: 350px;
+    height: 80vh;
     align-items: center;
     position: relative;
 
@@ -21,7 +21,7 @@ export const CollectionItemContainer = styled.div`
     }
 
     @media screen and (max-width: 800px) {
-        width: 40vw;
+        width: 95vw;
 
         &:hover {
             .image {
@@ -40,7 +40,6 @@ export const AddButton = styled(CustomButton)`
     opacity: 0.7;
     position: absolute;
     top: 255px;
-    right: 10%;
     display: none;
 
     @media screen and (max-width: 800px) {
