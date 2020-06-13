@@ -1,0 +1,70 @@
+MAKE THE COLLECTION ITEM CONTAINER BIGGER, then arrange the items within
+
+Add clothing detail page (larger view, select size?)
+	-create product page
+	-collection preview, arrows to scroll horizontally to view more items. 
+	-create layout, add dummy buttons
+	-convert add button to view item. 
+	-add sizes to firebase
+	-educate the dummy buttons
+	-send proper sizes to checkout page
+	-display items by size on checkout page (maybe add column?)
+	
+Figure out how to send orders to fulfillment person (and order confirmation email)
+Switch contact page for account details page (stuff like past orders, pending orders)
+Redux/Directory retrieve from firebase rather than hardcoded?
+
+
+
+PRODUCT PAGE
+
+import React from 'react';
+
+import { connect } from 'react-redux';
+
+import { addItem } from '../../redux/cart/cart.actions';
+
+import { 
+  ProductContainer, 
+  ProductImage, 
+  ProductFooterContainer, 
+  AddButton,
+  NameContainer, 
+  PriceContainer 
+} from './product.styles';
+
+const ProductPage = ({ item, addItem }) => {
+    const { name, price, imageUrl, sizes } = item;
+  
+    return (
+        <ProductContainer>
+        <ProductImage
+            className='image'
+            style={{
+            backgroundImage: `url(${imageUrl})`
+            }}
+        />
+        <ProductFooterContainer>
+            <NameContainer>{name}</NameContainer>
+            <PriceContainer>{price}</PriceContainer>
+        </ProductFooterContainer>
+        <ButtonsContainer>
+            {sizes.map(({ id, ...otherCollectionProps }) => ( //array equivalent of map
+                <AddButton key={id} {...otherCollectionProps} 
+                onClick={() => addItem(item)} //add size to parameters
+                inverted>{sizes}</AddButton>
+            ))}
+        </ButtonsContainer>
+        </ProductContainer>
+    );
+};
+
+
+const mapDispatchToProps = dispatch => ({
+    addItem: item => dispatch(addItem(item))
+});
+
+export default connect(
+null,
+mapDispatchToProps
+)(ProductPage);

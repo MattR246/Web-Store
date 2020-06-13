@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { viewItem } from '../../redux/shop/shop.actions';
 
@@ -13,9 +13,8 @@ import {
     PriceContainer,
 } from './collection-item.styles';
 
-const CollectionItem = ({ item, viewItem, history, match, routeName }) => {
+const CollectionItem = ({ item, viewItem }) => {
     const { name, price, imageUrl } = item;
-    console.log('THIS', match);
 
     return (
         <CollectionItemContainer>
@@ -29,12 +28,9 @@ const CollectionItem = ({ item, viewItem, history, match, routeName }) => {
                 <NameContainer>{name}</NameContainer>
                 <PriceContainer>{price}</PriceContainer>
             </CollectionFooterContainer>
-
-            <Link to={`/product/${name}`}>
-                <AddButton onClick={() => viewItem(item)} inverted>
-                    View Item
-                </AddButton>
-            </Link>
+            <AddButton onClick={() => viewItem(item)} inverted>
+                View Item
+            </AddButton>
         </CollectionItemContainer>
     );
 };

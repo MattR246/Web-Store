@@ -15,8 +15,8 @@ import {
 } from './product.styles';
 
 const ProductPage = ({ itemToView, addItem }) => {
+    //if itemToView === null then itemToView = match.params.routename, match.params.item
     const { name, price, imageUrl } = itemToView;
-    console.log("Here's the item!", itemToView);
     return (
         <CollectionItemContainer>
             <BackgroundImage
